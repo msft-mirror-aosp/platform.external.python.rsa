@@ -1,8 +1,66 @@
-Python-RSA changelog
-========================================
+# Python-RSA changelog
 
-Version 4.0 - released 2018-09-16
-----------------------------------------
+
+## Version 4.4 & 4.6 - released 2020-06-12
+
+Version 4.4 and 4.6 are almost a re-tagged release of version 4.2. It requires
+Python 3.5+. To avoid older Python installations from trying to upgrade to RSA
+4.4, this is now made explicit in the `python_requires` argument in `setup.py`.
+There was a mistake releasing 4.4 as "3.5+ only", which made it necessary to
+retag 4.4 as 4.6 as well.
+
+No functional changes compared to version 4.2.
+
+
+## Version 4.3 - released 2020-06-12
+
+Version 4.3 and 4.5 are almost a re-tagged release of version 4.0. It is the
+last to support Python 2.7. This is now made explicit in the `python_requires`
+argument in `setup.py`. Python 3.4 is not supported by this release. There was a
+mistake releasing 4.4 as "3.5+ only", which made it necessary to retag 4.3 as
+4.5 as well.
+
+Two security fixes have also been backported, so 4.3 = 4.0 + these two fixes.
+
+- Choose blinding factor relatively prime to N. Thanks Christian Heimes for pointing this out.
+- Reject cyphertexts (when decrypting) and signatures (when verifying) that have
+  been modified by prepending zero bytes. This resolves CVE-2020-13757. Thanks
+  Carnil for pointing this out.
+
+
+## Version 4.2 - released 2020-06-10
+
+- Rolled back the switch to Poetry, and reverted back to using Pipenv + setup.py
+  for dependency management. There apparently is an issue no-binary installs of
+  packages build with Poetry. This fixes
+  [#148](https://github.com/sybrenstuvel/python-rsa/issues/148)
+- Limited SHA3 support to those Python versions (3.6+) that support it natively.
+  The third-party library that adds support for this to Python 3.5 is a binary
+  package, and thus breaks the pure-Python nature of Python-RSA.
+  This should fix [#147](https://github.com/sybrenstuvel/python-rsa/issues/147).
+
+
+## Version 4.1 - released 2020-06-10
+
+- Added support for Python 3.8.
+- Dropped support for Python 2 and 3.4.
+- Added type annotations to the source code. This will make Python-RSA easier to use in
+  your IDE, and allows better type checking.
+- Added static type checking via [MyPy](http://mypy-lang.org/).
+- Fix [#129](https://github.com/sybrenstuvel/python-rsa/issues/129) Installing from source
+  gives UnicodeDecodeError.
+- Switched to using [Poetry](https://poetry.eustace.io/) for package
+  management.
+- Added support for SHA3 hashing: SHA3-256, SHA3-384, SHA3-512. This
+  is natively supported by Python 3.6+ and supported via a third-party
+  library on Python 3.5.
+- Choose blinding factor relatively prime to N. Thanks Christian Heimes for pointing this out.
+- Reject cyphertexts (when decrypting) and signatures (when verifying) that have
+  been modified by prepending zero bytes. This resolves CVE-2020-13757. Thanks
+  Adelapie for pointing this out.
+
+
+## Version 4.0 - released 2018-09-16
 
 - Removed deprecated modules:
     - rsa.varblock
@@ -24,21 +82,18 @@ Version 4.0 - released 2018-09-16
 - Transitioned from `requirements.txt` to Pipenv for package management.
 
 
-Version 3.4.2 - released 2016-03-29
-----------------------------------------
+## Version 3.4.2 - released 2016-03-29
 
 - Fixed dates in CHANGELOG.txt
 
 
-Version 3.4.1 - released 2016-03-26
-----------------------------------------
+## Version 3.4.1 - released 2016-03-26
 
 - Included tests/private.pem in MANIFEST.in
 - Included README.md and CHANGELOG.txt in MANIFEST.in
 
 
-Version 3.4 - released 2016-03-17
-----------------------------------------
+## Version 3.4 - released 2016-03-17
 
 - Moved development to GitHub: https://github.com/sybrenstuvel/python-rsa
 - Solved side-channel vulnerability by implementing blinding, fixes #19
@@ -59,8 +114,7 @@ Version 3.4 - released 2016-03-17
 [4] http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf
 
 
-Version 3.3 - released 2016-01-13
-----------------------------------------
+## Version 3.3 - released 2016-01-13
 
 - Thanks to Filippo Valsorda: Fix BB'06 attack in verify() by
   switching from parsing to comparison. See [1] for more information.
@@ -71,54 +125,46 @@ Version 3.3 - released 2016-01-13
 [1] https://blog.filippo.io/bleichenbacher-06-signature-forgery-in-python-rsa/
 
 
-Version 3.2.3 - released 2015-11-05
-----------------------------------------
+## Version 3.2.3 - released 2015-11-05
 
 - Added character encoding markers for Python 2.x
 
 
-Version 3.2.1 - released 2015-11-05
-----------------------------------------
+## Version 3.2.1 - released 2015-11-05
 
 - Added per-file licenses
 - Added support for wheel packages
 - Made example code more consistent and up to date with Python 3.4
 
 
-Version 3.2 - released 2015-07-29
-----------------------------------------
+## Version 3.2 - released 2015-07-29
 
 - Mentioned support for Python 3 in setup.py
 
 
-Version 3.1.4 - released 2014-02-22
-----------------------------------------
+## Version 3.1.4 - released 2014-02-22
 
 - Fixed some bugs
 
 
-Version 3.1.3 - released 2014-02-02
-----------------------------------------
+## Version 3.1.3 - released 2014-02-02
 
 - Dropped support for Python 2.5
 
 
-Version 3.1.2 - released 2013-09-15
-----------------------------------------
+## Version 3.1.2 - released 2013-09-15
 
 - Added Python 3.3 to the test environment.
 - Removed dependency on Distribute
 - Added support for loading public keys from OpenSSL
 
 
-Version 3.1.1 - released 2012-06-18
-----------------------------------------
+## Version 3.1.1 - released 2012-06-18
 
 - Fixed doctests for Python 2.7
 - Removed obsolete unittest so all tests run fine on Python 3.2
 
-Version 3.1 - released 2012-06-17
-----------------------------------------
+## Version 3.1 - released 2012-06-17
 
 - Big, big credits to Yesudeep Mangalapilly for all the changes listed
   below!
@@ -131,34 +177,25 @@ Version 3.1 - released 2012-06-17
 
 
 
-Version 3.0.1 - released 2011-08-07
-----------------------------------------
+## Version 3.0.1 - released 2011-08-07
 
 - Removed unused import of abc module
 
 
-Version 3.0 - released 2011-08-05
-----------------------------------------
+## Version 3.0 - released 2011-08-05
 
 - Changed the meaning of the keysize to mean the size of ``n`` rather than
   the size of both ``p`` and ``q``. This is the common interpretation of
   RSA keysize. To get the old behaviour, double the keysize when generating a
   new key.
-
 - Added a lot of doctests
-
 - Added random-padded encryption and decryption using PKCS#1 version 1.5
-
 - Added hash-based signatures and verification using PKCS#1v1.5
-
 - Modeling private and public key as real objects rather than dicts.
-
 - Support for saving and loading keys as PEM and DER files.
-
 - Ability to extract a public key from a private key (PEM+DER)
 
 
-Version 2.0
-----------------------------------------
+## Version 2.0
 
 - Security improvements by Barry Mead.
