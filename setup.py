@@ -25,7 +25,7 @@ with open('README.md', encoding='utf-8') as f:
 
 if __name__ == '__main__':
     setup(name='rsa',
-          version='4.6',
+          version='4.7',
           description='Pure-Python RSA implementation',
           long_description=long_description,
           long_description_content_type='text/markdown',
@@ -49,6 +49,7 @@ if __name__ == '__main__':
               'Programming Language :: Python :: 3.6',
               'Programming Language :: Python :: 3.7',
               'Programming Language :: Python :: 3.8',
+              'Programming Language :: Python :: 3.9',
               'Programming Language :: Python :: Implementation :: CPython',
               'Programming Language :: Python :: Implementation :: PyPy',
               'Topic :: Security :: Cryptography',
