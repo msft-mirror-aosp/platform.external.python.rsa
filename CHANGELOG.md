@@ -1,5 +1,16 @@
 # Python-RSA changelog
 
+## Version 4.7 - released 2021-01-10
+
+- Fix [#165](https://github.com/sybrenstuvel/python-rsa/issues/165]:
+  CVE-2020-25658 - Bleichenbacher-style timing oracle in PKCS#1 v1.5 decryption
+  code
+- Add padding length check as described by PKCS#1 v1.5 (Fixes
+  [#164](https://github.com/sybrenstuvel/python-rsa/issues/164))
+- Reuse of blinding factors to speed up blinding operations.
+  Fixes [#162](https://github.com/sybrenstuvel/python-rsa/issues/162).
+- Declare & test support for Python 3.9
+
 
 ## Version 4.4 & 4.6 - released 2020-06-12
 
@@ -12,7 +23,7 @@ retag 4.4 as 4.6 as well.
 No functional changes compared to version 4.2.
 
 
-## Version 4.3 - released 2020-06-12
+## Version 4.3 & 4.5 - released 2020-06-12
 
 Version 4.3 and 4.5 are almost a re-tagged release of version 4.0. It is the
 last to support Python 2.7. This is now made explicit in the `python_requires`
