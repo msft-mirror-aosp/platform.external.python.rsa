@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 #  Copyright 2011 Sybren A. Stüvel <sybren@stuvel.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +17,7 @@
 
 import unittest
 
+from rsa._compat import is_bytes
 from rsa.pem import _markers
 import rsa.key
 
@@ -76,13 +79,13 @@ class TestByteOutput(unittest.TestCase):
 
     def test_bytes_public(self):
         key = rsa.key.PublicKey.load_pkcs1_openssl_pem(public_key_pem)
-        self.assertIsInstance(key.save_pkcs1(format='DER'), bytes)
-        self.assertIsInstance(key.save_pkcs1(format='PEM'), bytes)
+        self.assertTrue(is_bytes(key.save_pkcs1(format='DER')))
+        self.assertTrue(is_bytes(key.save_pkcs1(format='PEM')))
 
     def test_bytes_private(self):
         key = rsa.key.PrivateKey.load_pkcs1(private_key_pem)
-        self.assertIsInstance(key.save_pkcs1(format='DER'), bytes)
-        self.assertIsInstance(key.save_pkcs1(format='PEM'), bytes)
+        self.assertTrue(is_bytes(key.save_pkcs1(format='DER')))
+        self.assertTrue(is_bytes(key.save_pkcs1(format='PEM')))
 
 
 class TestByteInput(unittest.TestCase):
@@ -90,10 +93,10 @@ class TestByteInput(unittest.TestCase):
 
     def test_bytes_public(self):
         key = rsa.key.PublicKey.load_pkcs1_openssl_pem(public_key_pem.encode('ascii'))
-        self.assertIsInstance(key.save_pkcs1(format='DER'), bytes)
-        self.assertIsInstance(key.save_pkcs1(format='PEM'), bytes)
+        self.assertTrue(is_bytes(key.save_pkcs1(format='DER')))
+        self.assertTrue(is_bytes(key.save_pkcs1(format='PEM')))
 
     def test_bytes_private(self):
         key = rsa.key.PrivateKey.load_pkcs1(private_key_pem.encode('ascii'))
-        self.assertIsInstance(key.save_pkcs1(format='DER'), bytes)
-        self.assertIsInstance(key.save_pkcs1(format='PEM'), bytes)
+        self.assertTrue(is_bytes(key.save_pkcs1(format='DER')))
+        self.assertTrue(is_bytes(key.save_pkcs1(format='PEM')))

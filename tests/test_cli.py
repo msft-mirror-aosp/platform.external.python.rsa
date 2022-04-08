@@ -4,37 +4,47 @@ Unit tests for CLI entry points.
 
 from __future__ import print_function
 
-import functools
-import io
-import os
-import sys
-import typing
 import unittest
-from contextlib import contextmanager, redirect_stdout, redirect_stderr
+import sys
+import functools
+from contextlib import contextmanager
+
+import os
+from io import StringIO, BytesIO
 
 import rsa
 import rsa.cli
 import rsa.util
+from rsa._compat import PY2
+
+
+def make_buffer():
+    if PY2:
+        return BytesIO()
+    buf = StringIO()
+    buf.buffer = BytesIO()
+    return buf
+
+
+def get_bytes_out(out):
+    if PY2:
+        # Python 2.x writes 'str' to stdout
+        return out.getvalue()
+    # Python 3.x writes 'bytes' to stdout.buffer
+    return out.buffer.getvalue()
 
 
 @contextmanager
-def captured_output() -> typing.Generator:
+def captured_output():
     """Captures output to stdout and stderr"""
 
-    # According to mypy, we're not supposed to change buf_out.buffer.
-    # However, this is just a test, and it works, hence the 'type: ignore'.
-    buf_out = io.StringIO()
-    buf_out.buffer = io.BytesIO()  # type: ignore
-
-    buf_err = io.StringIO()
-    buf_err.buffer = io.BytesIO()  # type: ignore
-
-    with redirect_stdout(buf_out), redirect_stderr(buf_err):
-        yield buf_out, buf_err
-
-
-def get_bytes_out(buf) -> bytes:
-    return buf.buffer.getvalue()
+    new_out, new_err = make_buffer(), make_buffer()
+    old_out, old_err = sys.stdout, sys.stderr
+    try:
+        sys.stdout, sys.stderr = new_out, new_err
+        yield new_out, new_err
+    finally:
+        sys.stdout, sys.stderr = old_out, old_err
 
 
 @contextmanager

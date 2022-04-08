@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 #  Copyright 2011 Sybren A. Stüvel <sybren@stuvel.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,13 +16,15 @@
 
 """Utility functions."""
 
+from __future__ import with_statement, print_function
+
 import sys
 from optparse import OptionParser
 
 import rsa.key
 
 
-def private_to_public() -> None:
+def private_to_public():
     """Reads a private key and outputs the corresponding public key."""
 
     # Parse the CLI options

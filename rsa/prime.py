@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 #  Copyright 2011 Sybren A. Stüvel <sybren@stuvel.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,13 +20,14 @@ Implementation based on the book Algorithm Design by Michael T. Goodrich and
 Roberto Tamassia, 2002.
 """
 
+from rsa._compat import range
 import rsa.common
 import rsa.randnum
 
 __all__ = ['getprime', 'are_relatively_prime']
 
 
-def gcd(p: int, q: int) -> int:
+def gcd(p, q):
     """Returns the greatest common divisor of p and q
 
     >>> gcd(48, 180)
@@ -36,7 +39,7 @@ def gcd(p: int, q: int) -> int:
     return p
 
 
-def get_primality_testing_rounds(number: int) -> int:
+def get_primality_testing_rounds(number):
     """Returns minimum number of rounds for Miller-Rabing primality testing,
     based on number bitsize.
 
@@ -62,7 +65,7 @@ def get_primality_testing_rounds(number: int) -> int:
     return 10
 
 
-def miller_rabin_primality_testing(n: int, k: int) -> bool:
+def miller_rabin_primality_testing(n, k):
     """Calculates whether n is composite (which is always correct) or prime
     (which theoretically is incorrect with error probability 4**-k), by
     applying Miller-Rabin primality testing.
@@ -115,7 +118,7 @@ def miller_rabin_primality_testing(n: int, k: int) -> bool:
     return True
 
 
-def is_prime(number: int) -> bool:
+def is_prime(number):
     """Returns True if the number is prime, and False otherwise.
 
     >>> is_prime(2)
@@ -141,7 +144,7 @@ def is_prime(number: int) -> bool:
     return miller_rabin_primality_testing(number, k + 1)
 
 
-def getprime(nbits: int) -> int:
+def getprime(nbits):
     """Returns a prime number that can be stored in 'nbits' bits.
 
     >>> p = getprime(128)
@@ -169,7 +172,7 @@ def getprime(nbits: int) -> int:
             # Retry if not prime
 
 
-def are_relatively_prime(a: int, b: int) -> bool:
+def are_relatively_prime(a, b):
     """Returns True if a and b are relatively prime, and False if they
     are not.
 
