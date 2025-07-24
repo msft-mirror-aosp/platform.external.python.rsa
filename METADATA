@@ -11,6 +11,9 @@ third_party {
   }
   version: "version-4.7"
   license_type: NOTICE
+  security {
+    tag: "NVD-CPE2.3:cpe:/a:python-rsa_project:python-rsa:4.7"
+  }
   last_upgrade_date {
     year: 2021
     month: 1
